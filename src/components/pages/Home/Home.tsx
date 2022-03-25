@@ -14,20 +14,20 @@ function Home() {
   const [allData, setAllData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [singlePermit, setSinglePermit] = useState(null);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPermits());
   }, [dispatch]);
 
-  const permits = useSelector((state) => state.permit.permits);
+  const permits = useSelector((state: any) => state.permit.permits);
 
   useEffect(() => {
       permits && setAllData(permits)
   }, [permits])
 
-  const sortedPermits = allData?.sort((a: Date, b: Date): any => {
-    return new Date(b.issue_date) - new Date(a.issue_date);
+  const sortedPermits= allData?.sort((a: any, b: any) => {
+    return new Date(b.issue_date).getTime() - new Date(a.issue_date).getTime();
   }).slice(0, 10);
 
   const showSinglePermit = (id: string) => {
@@ -37,6 +37,7 @@ function Home() {
   }
   return (<>
     <div className="modal-header">List of Recent Permits</div>
+    
     {openModal && 
         <Modal
             singlePermit={singlePermit}
