@@ -19,3 +19,16 @@
     font-size: 2rem;
     color: rgb(32, 133, 228);
 }
+
+.description {
+    text-transform: capitalize;
+}
+
+.btn {
+    background: rgb(32, 133, 228);
+    border: none;
+    margin-top: 2rem;
+    padding: .4rem 1rem;
+    cursor: pointer;
+    color: #fff;
+}

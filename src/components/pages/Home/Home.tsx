@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../redux/ducks/permits";
-import Modal from './Modal/Modal';
+import { getPermits } from "../../../redux/ducks/permits";
+import Card from '../../Card/Card';
+import Modal from '../../Modal/Modal';
+import './home.css'
+
+interface PermitDetail {
+  id: string,
+  contact_1_name: string
+}
 
 function Home() {
   const [allData, setAllData] = useState([]);
@@ -10,7 +17,7 @@ function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(getPermits());
   }, [dispatch]);
 
   const permits = useSelector((state) => state.permit.permits);
@@ -19,7 +26,7 @@ function Home() {
       permits && setAllData(permits)
   }, [permits])
 
-  const sortedPermits = allData?.sort((a: Date,b: Date) => {
+  const sortedPermits = allData?.sort((a: Date, b: Date): any => {
     return new Date(b.issue_date) - new Date(a.issue_date);
   }).slice(0, 10);
 
@@ -28,18 +35,20 @@ function Home() {
     setSinglePermit(currentPermitData);
     setOpenModal(true);
   }
-//   console.log("SORTED DATA", sortedPermits);
   return (<>
-    <div>Home Component Here!!</div>
+    <div className="modal-header">List of Recent Permits</div>
     {openModal && 
         <Modal
-        singleEvent={singlePermit}
-        setOpenModal={setOpenModal}
+            singlePermit={singlePermit}
+            setOpenModal={setOpenModal}
         />
       }
-    {sortedPermits?.map((permit, index) => (
-        <div key={index} onClick={() => showSinglePermit(permit.id)}>
-            <p>{permit.issue_date}</p>
+    {sortedPermits?.map((permit: PermitDetail) => (
+        <div className="hotlist" key={permit.id} onClick={() => showSinglePermit(permit.id)}>
+            <Card
+                id={permit.id}
+                contact_1_name={permit.contact_1_name}
+            />
         </div>
     ))}
   </>

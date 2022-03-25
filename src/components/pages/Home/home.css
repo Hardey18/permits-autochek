@@ -1,0 +1,10 @@
+.hotlist {
+    margin-bottom: 3rem;
+    text-align: left;
+}
+
+.modal-header {
+    font-size: 2rem;
+    color: rgb(32, 133, 228);
+    margin-bottom: 2rem;
+}

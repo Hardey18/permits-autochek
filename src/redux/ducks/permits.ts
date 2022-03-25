@@ -1,7 +1,7 @@
 export const GET_PERMITS = "GET_PERMITS";
 const SET_PERMIT = "SET_PERMIT";
 
-export const getUser = () => ({
+export const getPermits = () => ({
   type: GET_PERMITS
 });
 

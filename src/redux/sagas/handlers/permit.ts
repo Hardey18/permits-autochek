@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import { setPermit } from "../../ducks/permits";
-import { requestGetUser } from "../requests/user";
+import { requestGetPermit } from "../requests/permit";
 
 export interface ResponseGenerator{
     config?:any,
@@ -11,9 +11,9 @@ export interface ResponseGenerator{
     statusText?:string
 }
 
-export function* handleGetUser() {
+export function* handleGetPermit() {
   try {
-    const response: ResponseGenerator = yield call(requestGetUser);
+    const response: ResponseGenerator = yield call(requestGetPermit);
     const { data } = response;
     yield put(setPermit(data));
   } catch (error) {
