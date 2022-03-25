@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getPermits } from "../../../redux/ducks/permits";
-import Card from '../../Card/Card';
-import Modal from '../../Modal/Modal';
+import Card from '../../reusables/Card/Card';
+import Modal from '../../reusables/Modal/Modal';
 import './home.css'
 
 interface PermitDetail {
@@ -26,9 +26,10 @@ function Home() {
       permits && setAllData(permits)
   }, [permits])
 
-  const sortedPermits= allData?.sort((a: any, b: any) => {
+  const sortedPermits = allData?.sort((a: any, b: any) => {
     return new Date(b.issue_date).getTime() - new Date(a.issue_date).getTime();
   }).slice(0, 10);
+  console.log("RESULTS", sortedPermits)
 
   const showSinglePermit = (id: string) => {
     const currentPermitData: any = sortedPermits.find((permit: any) => permit.id === id);
@@ -37,7 +38,7 @@ function Home() {
   }
   return (<>
     <div className="modal-header">List of Recent Permits</div>
-    
+
     {openModal && 
         <Modal
             singlePermit={singlePermit}
@@ -48,7 +49,7 @@ function Home() {
         <div className="hotlist" key={permit.id} onClick={() => showSinglePermit(permit.id)}>
             <Card
                 id={permit.id}
-                contact_1_name={permit.contact_1_name}
+                name={permit.contact_1_name}
             />
         </div>
     ))}
